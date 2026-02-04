@@ -13,9 +13,7 @@
   font-family:'Poppins',sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{ scroll-behavior:smooth; }
 
 body{
   background:linear-gradient(180deg,#fde2e4,#f8edeb,#eae4e9,#dee2ff);
@@ -30,6 +28,7 @@ section{
   justify-content:center;
   align-items:center;
   padding:40px;
+  position:relative;
 }
 
 /* CARD */
@@ -62,6 +61,20 @@ p{
   line-height:1.7;
 }
 
+/* SCROLL HINT */
+.scroll-hint{
+  margin-top:25px;
+  font-size:0.95em;
+  color:#777;
+  animation:fade 2s ease-in-out infinite;
+}
+
+@keyframes fade{
+  0%{opacity:.3}
+  50%{opacity:1}
+  100%{opacity:.3}
+}
+
 /* BUTTONS */
 .buttons{
   margin-top:30px;
@@ -70,11 +83,13 @@ p{
 }
 
 button{
-  padding:12px 34px;
+  width:130px;
+  height:44px;
   border:none;
   border-radius:30px;
   font-size:1em;
   cursor:pointer;
+  transition:background .3s;
 }
 
 #yes{
@@ -87,6 +102,7 @@ button{
   color:#555;
   position:absolute;
   right:0;
+  top:0;
 }
 
 /* PHOTOS */
@@ -99,7 +115,7 @@ button{
 
 .photo{
   opacity:0;
-  transform:scale(.9);
+  transform:scale(.92);
   transition:.8s ease;
 }
 
@@ -125,7 +141,7 @@ button{
   position:fixed;
   bottom:-20px;
   font-size:16px;
-  opacity:.5;
+  opacity:.45;
   animation:float 10s linear infinite;
   pointer-events:none;
 }
@@ -155,6 +171,8 @@ button{
       <button id="yes">Yes ❤️</button>
       <button id="no">No</button>
     </div>
+
+    <div class="scroll-hint">Scroll down for more ↓</div>
   </div>
 </section>
 
@@ -189,8 +207,7 @@ button{
     <h2>From My Heart</h2>
     <p>
       I love you deeply.<br>
-      You are my calm, my happiness, my world.<br>
-      Every day with you feels warmer.
+      You are my calm, my happiness, my world.
     </p>
   </div>
 </section>
@@ -218,11 +235,14 @@ function type(){
 }
 type();
 
-/* NO button tease (professional bounds) */
+/* NO button tease – FIXED SIZE */
 const no=document.getElementById("no");
 no.addEventListener("mouseenter",()=>{
-  const p=no.parentElement;
-  no.style.left=Math.random()*(p.clientWidth-no.offsetWidth)+"px";
+  const parent=no.parentElement;
+  const maxX=parent.clientWidth-no.offsetWidth;
+  const maxY=parent.clientHeight-no.offsetHeight;
+  no.style.left=Math.random()*maxX+"px";
+  no.style.top=Math.random()*maxY+"px";
 });
 
 /* Music */
@@ -250,7 +270,7 @@ setInterval(()=>{
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),10000);
-},1200);
+},1400);
 </script>
 
 </body>
