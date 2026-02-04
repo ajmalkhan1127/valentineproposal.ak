@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine ❤️</title>
+<title>For My Valentine ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
+  font-family:'Quicksand',sans-serif;
+  background:linear-gradient(180deg,#fff0f5,#e6f7ff);
   overflow:hidden;
 }
 
+/* SECTIONS */
 section{
   display:none;
   height:100vh;
@@ -26,71 +26,94 @@ section{
   text-align:center;
   padding:20px;
 }
+section.active{display:flex;}
 
-section.active{
-  display:flex;
-}
-
+/* CARD */
 .card{
-  background:rgba(0,0,0,0.6);
+  background:white;
   padding:30px;
-  border-radius:20px;
+  border-radius:25px;
+  box-shadow:0 20px 40px rgba(255,105,180,.25);
   max-width:420px;
 }
 
-h1,h2{
-  color:#ff4f8b;
-}
+/* TEXT */
+h1,h2{color:#ff5fa2;}
+p{color:#444;font-size:18px;line-height:1.6}
 
+/* BUTTONS */
 button{
-  padding:12px 28px;
+  padding:12px 30px;
   border:none;
   border-radius:30px;
   font-size:16px;
   cursor:pointer;
   margin:10px;
 }
-
-.yes{background:#ff4f8b;color:white;}
-.no{background:#444;color:white;position:absolute;}
-
-.hearts span{
-  position:fixed;
-  bottom:-10px;
-  font-size:22px;
-  animation:float 7s linear infinite;
-  opacity:.9;
+.yes{
+  background:linear-gradient(135deg,#ff6fae,#ff9ecf);
+  color:white;
+}
+.no{
+  background:#eee;
+  color:#555;
+  position:absolute;
 }
 
-@keyframes float{
+/* FLOATING LIGHTS */
+.lights span{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.9);
+  animation:lightFloat 6s linear infinite;
+}
+@keyframes lightFloat{
   0%{transform:translateY(0);opacity:0}
   20%{opacity:1}
   100%{transform:translateY(-120vh);opacity:0}
 }
 
+/* HEARTS */
+.hearts span{
+  position:fixed;
+  bottom:-10px;
+  font-size:22px;
+  animation:heartUp 7s linear infinite;
+}
+@keyframes heartUp{
+  0%{transform:translateY(0) scale(.7);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateY(-120vh) scale(1.3);opacity:0}
+}
+
+/* PHOTOS */
 .photos img{
   width:160px;
-  border-radius:15px;
+  border-radius:18px;
   margin:10px;
-  box-shadow:0 10px 20px rgba(0,0,0,.5);
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
 }
 
+/* EXPLOSION */
 .explosion{
   position:fixed;
-  font-size:30px;
+  font-size:32px;
   animation:boom 2s ease-out forwards;
 }
-
 @keyframes boom{
   0%{transform:scale(0);opacity:1}
-  100%{transform:scale(5);opacity:0}
+  100%{transform:scale(4);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" src="song.mp3" loop></audio>
+<audio id="music" src="romantic.mp3" loop></audio>
+
+<div class="lights"></div>
 <div class="hearts"></div>
 
 <!-- PAGE 1 -->
@@ -105,21 +128,21 @@ button{
 <!-- PAGE 2 -->
 <section id="page2">
   <div class="card">
-    <p id="typeText"></p>
-    <button class="yes" onclick="nextPage(3)">Next ❤️</button>
+    <p id="typing"></p>
+    <button class="yes" onclick="go(3)">Next ❤️</button>
   </div>
 </section>
 
 <!-- PAGE 3 -->
 <section id="page3">
-  <h2>Our Moments ❤️</h2>
+  <h2>Our Cute Moments ❤️</h2>
   <div class="photos">
-    <img src="photo1.jpeg">
-    <img src="photo2.jpeg">
-    <img src="photo3.jpeg">
-    <img src="photo4.jpeg">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
   </div>
-  <button class="yes" onclick="nextPage(4)">Next ❤️</button>
+  <button class="yes" onclick="go(4)">Next ❤️</button>
 </section>
 
 <!-- PAGE 4 -->
@@ -131,14 +154,25 @@ button{
 </section>
 
 <script>
+// LIGHTS
+const lights=document.querySelector(".lights");
+setInterval(()=>{
+  const l=document.createElement("span");
+  l.style.left=Math.random()*100+"vw";
+  l.style.animationDuration=4+Math.random()*4+"s";
+  lights.appendChild(l);
+  setTimeout(()=>l.remove(),8000);
+},200);
+
 // HEART FLOAT
-const heartBox=document.querySelector(".hearts");
+const hearts=document.querySelector(".hearts");
+const colors=["❤️","💖","💗","💘","💕"];
 setInterval(()=>{
   const h=document.createElement("span");
-  h.innerHTML="❤️";
+  h.innerHTML=colors[Math.floor(Math.random()*colors.length)];
   h.style.left=Math.random()*100+"vw";
   h.style.animationDuration=5+Math.random()*4+"s";
-  heartBox.appendChild(h);
+  hearts.appendChild(h);
   setTimeout(()=>h.remove(),9000);
 },350);
 
@@ -149,36 +183,36 @@ noBtn.addEventListener("mouseover",()=>{
   noBtn.style.top=Math.random()*70+"%";
 });
 
-// YES CLICK
+// YES
 function yesClick(){
   document.getElementById("music").play();
-  nextPage(2);
+  go(2);
 }
 
-// PAGE SWITCH
-function nextPage(n){
+// PAGE CHANGE
+function go(n){
   document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
   document.getElementById("page"+n).classList.add("active");
   if(n===4)explode();
 }
 
 // TYPING TEXT
-const msg="Happy Valentine Day my pretty Falak ❤️ I love you a lot ❤️ You are my world ❤️";
+const msg="Happy Valentine Day my pretty Falak ❤️... I love you a lot my pretty princess... You are my world ❤️";
 let i=0;
-function typing(){
+function type(){
   if(i<msg.length){
-    document.getElementById("typeText").innerHTML+=msg[i++];
-    setTimeout(typing,50);
+    document.getElementById("typing").innerHTML+=msg[i++];
+    setTimeout(type,45);
   }
 }
-typing();
+type();
 
-// HEART EXPLOSION
+// HEART EXPLOSION (MULTICOLOR)
 function explode(){
-  for(let i=0;i<40;i++){
+  for(let i=0;i<45;i++){
     const e=document.createElement("span");
     e.className="explosion";
-    e.innerHTML="❤️";
+    e.innerHTML=colors[Math.floor(Math.random()*colors.length)];
     e.style.left=Math.random()*100+"vw";
     e.style.top=Math.random()*100+"vh";
     document.body.appendChild(e);
@@ -189,5 +223,3 @@ function explode(){
 
 </body>
 </html>
-
-
