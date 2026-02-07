@@ -6,106 +6,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-body {
-    background: linear-gradient(180deg, #fff0f5, #fde2e4, #fbcfe8);
-    color: #5a0033;
-    overflow-x: hidden;
+body{
+    background:linear-gradient(180deg,#fff0f5,#fde2e4,#fbcfe8);
+    color:#5a0033;
+    overflow-x:hidden;
 }
 
 /* sections */
-section {
-    min-height: 100vh;
-    padding: 60px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+section{
+    min-height:100vh;
+    padding:60px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-/* headings */
-h1 {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 1.1rem;
-    max-width: 700px;
-    line-height: 1.7;
-}
+/* text */
+h1{font-size:2.8rem;margin-bottom:15px;}
+h2{font-size:2rem;margin-bottom:10px;}
+p{font-size:1.1rem;max-width:700px;line-height:1.7;}
 
 /* buttons */
-.buttons {
-    margin-top: 30px;
-    position: relative;
+.buttons{
+    margin-top:30px;
+    position:relative;
+    height:90px;
 }
 
-button {
-    padding: 14px 32px;
-    border-radius: 30px;
-    border: none;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
+button{
+    padding:14px 32px;
+    border-radius:30px;
+    border:none;
+    font-size:1.1rem;
+    cursor:pointer;
 }
 
-.yes-btn {
-    background: #ff4d6d;
-    color: white;
-    margin-right: 20px;
+.yes-btn{
+    background:#ff4d6d;
+    color:white;
+    margin-right:40px;
+    box-shadow:0 0 15px rgba(255,77,109,0.6);
 }
 
-.no-btn {
-    background: white;
-    color: #ff4d6d;
-    border: 2px solid #ff4d6d;
-    position: relative;
-}
-
-/* NO hover tease */
-.no-btn:hover {
-    transform: translate(
-        calc(-40px + 80px * Math.random()),
-        calc(-40px + 80px * Math.random())
-    );
+.no-btn{
+    background:white;
+    color:#ff4d6d;
+    border:2px solid #ff4d6d;
+    position:absolute;
+    right:0;
+    transition:transform 0.2s ease;
 }
 
 /* scroll hint */
-.scroll {
-    margin-top: 40px;
-    font-size: 0.9rem;
-    opacity: 0.7;
+.scroll{
+    margin-top:40px;
+    font-size:0.9rem;
+    opacity:0.7;
 }
 
-/* photos */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-    width: 100%;
-    max-width: 900px;
+/* gallery */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    width:100%;
+    max-width:1000px;
+    margin-top:30px;
 }
 
-.gallery img {
-    width: 100%;
-    border-radius: 20px;
-    opacity: 0;
-    transform: scale(0.8);
-    animation: pop 1s forwards;
+.gallery img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    border-radius:18px;
+    opacity:0;
+    transform:scale(0.85);
+    animation:pop 1s forwards;
 }
 
 .gallery img:nth-child(1){animation-delay:0.2s}
@@ -113,44 +98,48 @@ button {
 .gallery img:nth-child(3){animation-delay:0.6s}
 .gallery img:nth-child(4){animation-delay:0.8s}
 
-@keyframes pop {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+@keyframes pop{
+    to{opacity:1;transform:scale(1);}
 }
 
 /* floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 22px;
-    animation: floatUp linear forwards;
-    z-index: 9999;
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:22px;
+    animation:floatUp linear forwards;
+    z-index:9999;
+    filter:drop-shadow(0 0 8px rgba(255,105,180,0.8));
 }
 
-@keyframes floatUp {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-110vh);
-        opacity: 0;
-    }
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-110vh);opacity:0;}
 }
 
-/* yes explosion */
-#yesEffect {
-    display: none;
-    animation: pop 0.8s ease forwards;
+/* explosion hearts */
+.explode{
+    position:fixed;
+    font-size:26px;
+    animation:explode 1.4s ease-out forwards;
+    z-index:10000;
+}
+
+@keyframes explode{
+    from{transform:translate(0,0) scale(0.3);opacity:1;}
+    to{transform:translate(var(--x),var(--y)) scale(1.3);opacity:0;}
+}
+
+/* yes section */
+#yesEffect{
+    display:none;
+    animation:pop 0.8s ease forwards;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
 <audio id="music" src="romantic.mp3" loop></audio>
 
 <!-- PAGE 1 -->
@@ -170,38 +159,21 @@ button {
 <section id="yesEffect">
     <h1>Happy Valentine’s Day 💖</h1>
     <p>
-        My pretty Falak, I love you a lot.  
+        My pretty Falak, I love you a lot.<br>
         You are my world, my peace, my everything.
     </p>
 </section>
 
 <!-- PAGE 3 -->
 <section>
-    <h2>YOU THROUGH MY EYES..👁️👁️✨</h2>
+    <h2>Just Us ✨</h2>
 
     <div class="gallery">
-
-    <div class="photo-box">
-        <img src="photo1.jpeg" alt="">
-        <p>EVERY MOMENTS FEEL LIKE DREAM ❤️</p>
+        <img src="photo1.jpeg">
+        <img src="photo2.jpeg">
+        <img src="photo3.jpeg">
+        <img src="photo4.jpeg">
     </div>
-
-    <div class="photo-box">
-        <img src="photo2.jpeg" alt="">
-        <p>BEAUTIFULL..✨ PRETTY ..❤️ MINE!!💖</p>
-    </div>
-
-    <div class="photo-box">
-        <img src="photo3.jpeg" alt="">
-        <p>MERE LIYE TUM KAAFI HO.. ✨</p>
-    </div>
-
-    <div class="photo-box">
-        <img src="photo4.jpeg" alt="">
-        <p>UNFORGETABLE MOMENT WITH MY PRETTY FUKU.. 💕</p>
-    </div>
-
-</div>
 
     <p style="margin-top:20px;">
         Every picture with you feels like home ❤️
@@ -210,31 +182,53 @@ button {
 
 <!-- PAGE 4 -->
 <section>
-    <h1>ALWAYS YOU...💖</h1>
+    <h1>Once Again… 💕</h1>
     <p>
-        Thank you for choosing me.  
+        Thank you for choosing me.<br>
         I’ll choose you — today, tomorrow, always.
     </p>
 </section>
 
 <script>
-function acceptYes() {
+/* YES click */
+function acceptYes(){
     document.getElementById("music").play();
+    document.getElementById("yesEffect").style.display="flex";
 
-    const yes = document.getElementById("yesEffect");
-    yes.style.display = "flex";
+    const colors=["❤️","💖","💕","💗","🤍","💜"];
 
-    for (let i = 0; i < 40; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = ["❤️","💖","💕","💗"][Math.floor(Math.random()*4)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random()*2 + 3) + "s";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
+    /* BIG EXPLOSION */
+    for(let i=0;i<50;i++){
+        const e=document.createElement("div");
+        e.className="explode";
+        e.innerHTML=colors[Math.floor(Math.random()*colors.length)];
+        e.style.left="50vw";
+        e.style.top="50vh";
+        e.style.setProperty("--x",(Math.random()*400-200)+"px");
+        e.style.setProperty("--y",(Math.random()*400-200)+"px");
+        document.body.appendChild(e);
+        setTimeout(()=>e.remove(),1500);
     }
 }
+
+/* background floating hearts */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML=["❤️","💖","💕","💗","🤍"][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+},600);
+
+/* NO button tease */
+const noBtn=document.querySelector(".no-btn");
+noBtn.addEventListener("mouseover",()=>{
+    const x=Math.random()*120-60;
+    const y=Math.random()*80-40;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
 </script>
 
 </body>
